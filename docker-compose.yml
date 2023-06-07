@@ -1,0 +1,10 @@
+version: '1'
+
+services:
+  app:
+    image: 'qrgenerator:latest'
+    build:
+      context: .
+    container_name: qrgenerator
+    ports:
+      - 8080:8080

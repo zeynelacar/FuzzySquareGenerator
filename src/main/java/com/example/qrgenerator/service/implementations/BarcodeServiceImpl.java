@@ -48,6 +48,6 @@ public class BarcodeServiceImpl implements BarcodeService {
         for (int i = 1; i < 12; i++){
             sb.append(rand.nextInt(10));
         }
-        return generateEANBarcode(sb.toString());
+        return generateEANBarcode(sb.substring(0,12));
     }
 }

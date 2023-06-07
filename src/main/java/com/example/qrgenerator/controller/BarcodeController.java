@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,13 +21,13 @@ public class BarcodeController {
 
     private final BarcodeService barcodeService;
 
-    @PostMapping(value = "/generate/{barcodeRequest}",produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> generateEANBarcode(@Valid @PathVariable String barcodeRequest ) throws IOException, WriterException, ValidatorException {
-        return new ResponseEntity<>(barcodeService.generateEANBarcode(barcodeRequest), HttpStatus.CREATED);
+    @PostMapping(value = "/generate",produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> generateEANBarcode(@Valid @RequestBody RequestDTO req) throws IOException, WriterException, ValidatorException {
+        return new ResponseEntity<>(barcodeService.generateEANBarcode(req.getData()), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/random",produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> generateEANRandom() throws IOException, WriterException, ValidatorException {
+    public ResponseEntity<byte[]> generateEANRandom() throws IOException, WriterException, ValidatorException, NoSuchAlgorithmException {
         return new ResponseEntity<>(barcodeService.generateRandom(), HttpStatus.CREATED);
     }
 
